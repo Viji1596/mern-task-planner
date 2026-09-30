@@ -92,7 +92,7 @@ mern-task-planner/
 ```
 ---
 
-##Application Architecture
+## Application Architecture
 ```text
                     ┌─────────────────────┐
                     │     User / Browser  │

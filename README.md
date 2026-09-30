@@ -89,9 +89,10 @@ mern-task-planner/
 │   └── vite.config.js
 │
 └── README.md
-
+```
 
 ##Application Architecture
+```text
                     ┌─────────────────────┐
                     │     User / Browser  │
                     └──────────┬──────────┘

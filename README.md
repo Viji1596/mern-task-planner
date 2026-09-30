@@ -90,6 +90,7 @@ mern-task-planner/
 │
 └── README.md
 ```
+---
 
 ##Application Architecture
 ```text

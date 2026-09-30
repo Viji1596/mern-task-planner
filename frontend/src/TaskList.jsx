@@ -12,8 +12,8 @@ function TaskList({ refresh }) {
     try {
       const url =
         priority === "All"
-          ? "http://localhost:5000/api/tasks"
-          : `http://localhost:5000/api/tasks?priority=${priority}`;
+          ? "https://mern-task-planner-2ymn.onrender.com/api/tasks"
+          : `https://mern-task-planner-2ymn.onrender.com/api/tasks?priority=${priority}`;
 
       const response = await fetch(url);
       const data = await response.json();
@@ -39,7 +39,7 @@ function TaskList({ refresh }) {
   const completeTask = async (id) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/tasks/${id}/complete`,
+        `https://mern-task-planner-2ymn.onrender.com/api/tasks/${id}/complete`,
         {
           method: "PUT",
         }
@@ -75,7 +75,7 @@ function TaskList({ refresh }) {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/tasks/${id}`,
+        `https://mern-task-planner-2ymn.onrender.com/api/tasks/${id}`,
         {
           method: "DELETE",
         }

@@ -1,29 +1,42 @@
-# AI Smart Task Planner
+# MERN Task Planner
 
-A full-stack MERN-based task management application that helps users create, organize, prioritize, and track their tasks with deadlines and estimated completion times.
+A full-stack Task Planner application built using the MERN stack.  
+The application allows users to create, manage, filter, complete, and delete tasks while tracking priorities, deadlines, and estimated completion time.
 
-## Features
+---
 
-- Create tasks with:
-  - Task title
-  - Priority
-  - Deadline
-  - Estimated completion time
-- Priority levels:
+## 🚀 Live Demo
+
+### 🌐 [Open the Live Website](https://mern-task-planner-1-utzl.onrender.com)
+
+The application is deployed and publicly accessible through Render.
+
+**Frontend:** Render Static Site  
+**Backend:** Render Web Service  
+**Database:** MongoDB Atlas
+
+---
+
+## 📌 Features
+
+- Create new tasks
+- Set task priority
   - Low
   - Medium
   - High
+- Set task deadline
+- Set estimated completion time
+- View all tasks
 - Filter tasks by priority
 - Mark tasks as completed
 - Delete tasks
-- Prevent deadlines earlier than the current date
-- Input validation and error handling
-- Task status tracking
-- Light and dark mode
-- Persistent data storage using MongoDB Atlas
-- REST API using Express.js
+- Light/Dark theme
+- Responsive user interface
+- Persistent data using MongoDB Atlas
 
-## Tech Stack
+---
+
+## 🛠️ Technologies Used
 
 ### Frontend
 - React
@@ -41,13 +54,13 @@ A full-stack MERN-based task management application that helps users create, org
 ### Database
 - MongoDB Atlas
 
-### Tools
-- Visual Studio Code
-- Git
+### Deployment
 - GitHub
-- AI coding assistant
+- Render
 
-## Project Structure
+---
+
+## 📂 Project Structure
 
 ```text
 mern-task-planner/
@@ -55,9 +68,11 @@ mern-task-planner/
 ├── backend/
 │   ├── models/
 │   │   └── Task.js
+│   │
 │   ├── routes/
 │   │   ├── taskRoutes.js
 │   │   └── aiRoutes.js
+│   │
 │   ├── .env
 │   ├── .gitignore
 │   ├── package.json
@@ -68,9 +83,9 @@ mern-task-planner/
 │   │   ├── AddTaskForm.jsx
 │   │   ├── TaskList.jsx
 │   │   ├── App.jsx
-│   │   ├── App.css
-│   │   └── main.jsx
+│   │   └── ...
+│   │
 │   ├── package.json
-│   └── ...
+│   └── vite.config.js
 │
 └── README.md

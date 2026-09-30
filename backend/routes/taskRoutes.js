@@ -34,7 +34,7 @@ router.get("/", async (req, res) => {
 // POST create a task
 router.post("/", async (req, res) => {
   try {
-    const { title, priority } = req.body;
+    const { title, priority, dueDate, estimatedMinutes } = req.body;
 
     if (!title || title.trim() === "") {
       return res.status(400).json({
@@ -48,9 +48,35 @@ router.post("/", async (req, res) => {
       });
     }
 
+    if (!dueDate) {
+      return res.status(400).json({
+      message: "Deadline is required",
+      });
+    }
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const selectedDate = new Date(dueDate);
+    selectedDate.setHours(0, 0, 0, 0);
+
+    if (selectedDate < today) {
+      return res.status(400).json({
+        message: "Deadline cannot be before today",
+      });
+    }
+
+    if (!estimatedMinutes || Number(estimatedMinutes) < 1) {
+      return res.status(400).json({
+        message: "Estimated time must be at least 1 minute",
+      });
+    }
+
     const task = new Task({
       title: title.trim(),
       priority,
+      dueDate,
+      estimatedMinutes: Number(estimatedMinutes),
     });
 
     const savedTask = await task.save();

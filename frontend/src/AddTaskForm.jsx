@@ -3,6 +3,8 @@ import { useState } from "react";
 function AddTaskForm({ onTaskAdded }) {
   const [title, setTitle] = useState("");
   const [priority, setPriority] = useState("Medium");
+  const [dueDate, setDueDate] = useState("");
+  const [estimatedMinutes, setEstimatedMinutes] = useState("");
   const [error, setError] = useState("");
 
   const handleSubmit = async (event) => {
@@ -10,6 +12,23 @@ function AddTaskForm({ onTaskAdded }) {
 
     if (!title.trim()) {
       setError("Title cannot be empty");
+      return;
+    }
+
+    if (!dueDate) {
+      setError("Deadline is required");
+      return;
+    }
+
+    const today = new Date().toISOString().split("T")[0];
+
+    if (dueDate < today) {
+      setError("Deadline cannot be before today");
+      return;
+    }
+
+    if (!estimatedMinutes || Number(estimatedMinutes) < 1) {
+      setError("Estimated time must be at least 1 minute");
       return;
     }
 
@@ -24,6 +43,8 @@ function AddTaskForm({ onTaskAdded }) {
         body: JSON.stringify({
           title: title.trim(),
           priority,
+          dueDate,
+          estimatedMinutes: Number(estimatedMinutes),
         }),
       });
 
@@ -36,6 +57,9 @@ function AddTaskForm({ onTaskAdded }) {
 
       setTitle("");
       setPriority("Medium");
+      setDueDate("");
+      setEstimatedMinutes("");
+
       onTaskAdded();
     } catch (error) {
       setError("Could not connect to the server");
@@ -64,6 +88,27 @@ function AddTaskForm({ onTaskAdded }) {
           <option value="Medium">Medium</option>
           <option value="High">High</option>
         </select>
+      </div>
+
+      <div className="form-group">
+        <label>Deadline</label>
+        <input
+          type="date"
+          value={dueDate}
+          min={new Date().toISOString().split("T")[0]}
+          onChange={(event) => setDueDate(event.target.value)}
+        />
+      </div>
+
+      <div className="form-group">
+        <label>Estimated Time (minutes)</label>
+        <input
+          type="number"
+          min="1"
+          value={estimatedMinutes}
+          onChange={(event) => setEstimatedMinutes(event.target.value)}
+          placeholder="e.g. 60"
+        />
       </div>
 
       {error && <p className="error-message">{error}</p>}

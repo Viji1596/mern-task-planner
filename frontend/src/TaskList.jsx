@@ -139,6 +139,8 @@ function TaskList({ refresh }) {
               <tr>
                 <th>Task</th>
                 <th>Priority</th>
+                <th>Deadline</th>
+                <th>Est. Time</th>
                 <th>Status</th>
                 <th>Actions</th>
               </tr>
@@ -150,24 +152,32 @@ function TaskList({ refresh }) {
                   <td>{task.title}</td>
 
                   <td>
-                    <span
-                      className={`priority priority-${task.priority.toLowerCase()}`}
-                    >
-                      {task.priority}
-                    </span>
-                  </td>
+  <span
+    className={`priority priority-${task.priority.toLowerCase()}`}
+  >
+    {task.priority}
+  </span>
+</td>
 
-                  <td>
-                    <span
-                      className={
-                        task.completed
-                          ? "status-completed"
-                          : "status-pending"
-                      }
-                    >
-                      {task.completed ? "Completed" : "Pending"}
-                    </span>
-                  </td>
+<td>
+  {new Date(task.dueDate).toLocaleDateString()}
+</td>
+
+<td>
+  {task.estimatedMinutes} min
+</td>
+
+<td>
+  <span
+    className={
+      task.completed
+        ? "status-completed"
+        : "status-pending"
+    }
+  >
+    {task.completed ? "Completed" : "Pending"}
+  </span>
+</td>
 
                   <td className="actions">
                     {!task.completed && (

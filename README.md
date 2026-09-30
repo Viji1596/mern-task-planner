@@ -7,7 +7,7 @@ The application allows users to create, manage, filter, complete, and delete tas
 
 ## 🚀 Live Demo
 
-### 🌐 [Open the Live Website][(https://mern-task-planner-1-utzl.onrender.com)](https://mern-task-planner-1-ut2l.onrender.com/)
+### 🌐 [Open the Live Website](https://mern-task-planner-1-ut2l.onrender.com/)
 
 The application is deployed and publicly accessible through Render.
 

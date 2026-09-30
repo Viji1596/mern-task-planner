@@ -89,3 +89,30 @@ mern-task-planner/
 │   └── vite.config.js
 │
 └── README.md
+
+
+##Application Architecture
+                    ┌─────────────────────┐
+                    │     User / Browser  │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │   React Frontend    │
+                    │      (Render)        │
+                    └──────────┬──────────┘
+                               │
+                         REST API
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │ Node.js + Express   │
+                    │      (Render)        │
+                    └──────────┬──────────┘
+                               │
+                          Mongoose
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │    MongoDB Atlas    │
+                    └─────────────────────┘

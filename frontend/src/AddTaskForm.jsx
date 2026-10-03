@@ -19,16 +19,22 @@ function AddTaskForm({ onTaskAdded }) {
       setError("Deadline is required");
       return;
     }
-
-    const today = new Date().toISOString().split("T")[0];
-
-    if (dueDate < today) {
-      setError("Deadline cannot be before today");
+    if (!estimatedMinutes || Number(estimatedMinutes) < 1) {
+      setError("Estimated time must be at least 1 minute");
       return;
     }
 
-    if (!estimatedMinutes || Number(estimatedMinutes) < 1) {
-      setError("Estimated time must be at least 1 minute");
+    const deadline = new Date(dueDate);
+    const minimumDeadline = new Date();
+
+    minimumDeadline.setMinutes(
+      minimumDeadline.getMinutes() + Number(estimatedMinutes)
+    );
+
+    if (deadline < minimumDeadline) {
+      setError(
+        "Deadline must allow enough time to complete the task"
+      );
       return;
     }
 
@@ -43,7 +49,7 @@ function AddTaskForm({ onTaskAdded }) {
         body: JSON.stringify({
           title: title.trim(),
           priority,
-          dueDate,
+          dueDate: new Date(dueDate).toISOString(),
           estimatedMinutes: Number(estimatedMinutes),
         }),
       });
@@ -93,9 +99,15 @@ function AddTaskForm({ onTaskAdded }) {
       <div className="form-group">
         <label>Deadline</label>
         <input
-          type="date"
+          type="datetime-local"
           value={dueDate}
-          min={new Date().toISOString().split("T")[0]}
+          min={(() => {
+          const now = new Date();
+           const offset = now.getTimezoneOffset();
+            const localTime = new Date(now.getTime() - offset * 60000);
+
+          return localTime.toISOString().slice(0, 16);
+        })()}
           onChange={(event) => setDueDate(event.target.value)}
         />
       </div>

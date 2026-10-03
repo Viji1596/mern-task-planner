@@ -25,6 +25,16 @@ const taskSchema = new mongoose.Schema(
       min: 1,
     },
 
+    scheduledStart: {
+      type: Date,
+      default: null,
+    },
+
+    scheduledEnd: {
+      type: Date,
+      default: null,
+    },
+
     completed: {
       type: Boolean,
       default: false,

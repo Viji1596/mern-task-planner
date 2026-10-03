@@ -160,7 +160,10 @@ function TaskList({ refresh }) {
 </td>
 
 <td>
-  {new Date(task.dueDate).toLocaleDateString()}
+  {new Date(task.dueDate).toLocaleString([], {
+  dateStyle: "medium",
+  timeStyle: "short",
+})}
 </td>
 
 <td>

@@ -36,47 +36,65 @@ router.post("/", async (req, res) => {
   try {
     const { title, priority, dueDate, estimatedMinutes } = req.body;
 
+    // Validate title
     if (!title || title.trim() === "") {
       return res.status(400).json({
         message: "Title cannot be empty",
       });
     }
 
+    // Validate priority
     if (!["Low", "Medium", "High"].includes(priority)) {
       return res.status(400).json({
         message: "Priority must be Low, Medium, or High",
       });
     }
 
+    // Validate deadline exists
     if (!dueDate) {
       return res.status(400).json({
-      message: "Deadline is required",
+        message: "Deadline is required",
       });
     }
 
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    const selectedDate = new Date(dueDate);
-    selectedDate.setHours(0, 0, 0, 0);
-
-    if (selectedDate < today) {
-      return res.status(400).json({
-        message: "Deadline cannot be before today",
-      });
-    }
-
+    // Validate estimated time
     if (!estimatedMinutes || Number(estimatedMinutes) < 1) {
       return res.status(400).json({
         message: "Estimated time must be at least 1 minute",
       });
     }
 
+    // Convert deadline to Date
+    const deadline = new Date(dueDate);
+
+    // Validate deadline format
+    if (isNaN(deadline.getTime())) {
+      return res.status(400).json({
+        message: "Invalid deadline",
+      });
+    }
+
+    // Deadline must allow enough time to complete the task
+    const minimumDeadline = new Date();
+
+    minimumDeadline.setMinutes(
+      minimumDeadline.getMinutes() + Number(estimatedMinutes)
+    );
+
+    if (deadline < minimumDeadline) {
+      return res.status(400).json({
+        message: "Deadline must allow enough time to complete the task",
+      });
+    }
+
+    // Create task
     const task = new Task({
       title: title.trim(),
       priority,
-      dueDate,
+      dueDate: deadline,
       estimatedMinutes: Number(estimatedMinutes),
+      scheduledStart: null,
+      scheduledEnd: null,
     });
 
     const savedTask = await task.save();
